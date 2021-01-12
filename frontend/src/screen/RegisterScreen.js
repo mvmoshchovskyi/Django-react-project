@@ -1,10 +1,7 @@
 import React, {useEffect, useState} from 'react';
-
-import {Link, Redirect, useHistory, useLocation,} from 'react-router-dom';
-
+import {Link, useHistory, useLocation,} from 'react-router-dom';
 import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MessageBox';
-
 import {setAlert} from '../actions/alertActions';
 import {signUp} from '../actions/authActions';
 import PropTypes from 'prop-types';
@@ -46,8 +43,6 @@ const RegisterScreen = ({setAlert, signUp, isAuthenticated, loading, error}) => 
         }
     }, [history, redirect, isAuthenticated]);
 
-    // if (isAuthenticated)
-    //     return <Redirect to='/'/>;
     return (
         <div>
             <form className="form" onSubmit={submitHandler}>

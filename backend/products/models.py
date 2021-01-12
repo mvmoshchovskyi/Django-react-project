@@ -1,5 +1,10 @@
+# import os
 from django.db import models
 
+
+# def user_directory_path(instance, filename):
+#     return os.path.join(f'{instance.user.username}', filename)
+# photo = models.ImageField(upload_to=user_directory_path)
 
 class ProductsModel(models.Model):
 

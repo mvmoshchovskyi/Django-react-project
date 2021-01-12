@@ -3,9 +3,9 @@ import {useParams, useLocation, Link, useHistory} from "react-router-dom";
 import {connect} from "react-redux";
 import {addToCart, removeFromCart} from "../actions/cartActions";
 import MessageBox from "../components/MessageBox";
+import PropTypes from "prop-types";
 
-const CartScreen = ({cartItems, addToCart, removeFromCart}) => {
-
+const CartScreen = ({userInfo, cartItems, addToCart, removeFromCart}) => {
     const {cartId} = useParams()
     let history = useHistory();
     let location = useLocation();
@@ -24,8 +24,9 @@ const CartScreen = ({cartItems, addToCart, removeFromCart}) => {
     };
 
     const checkoutHandler = () => {
-        history.push('/signin?redirect=shipping');
-    };
+        userInfo ? history.push('/shipping') : history.push('/signin?redirect=shipping')
+    }
+
     return (
         <div className="row top">
             <div className="col-2">
@@ -103,7 +104,14 @@ const CartScreen = ({cartItems, addToCart, removeFromCart}) => {
         </div>
     );
 }
+CartScreen.propTypes = {
+    cartItems: PropTypes.array,
+    userInfo: PropTypes.string,
+    addToCart: PropTypes.func,
+    removeFromCart: PropTypes.func,
+}
 const mapDispatchToProps = state => ({
-    cartItems: state.cart.cartItems
+    cartItems: state.cart.cartItems,
+    userInfo: state.auth.userInfo,
 })
 export default connect(mapDispatchToProps, {addToCart, removeFromCart})(CartScreen);

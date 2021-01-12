@@ -4,11 +4,13 @@ import {authReducer} from './authReducers'
 import {productListReducer, productDetailsReducer} from './productReducers'
 import {cartReducer} from "./cartReducers";
 
+
 export default combineReducers({
     alert :alertReducer,
     auth :authReducer,
-    productList : productListReducer,
+    productList : productListReducer ,
     productDetails :productDetailsReducer ,
-    cart:cartReducer
+    cart:cartReducer,
+    // order:orderReducer
 
 })
