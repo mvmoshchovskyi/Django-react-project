@@ -7,6 +7,8 @@ import CartScreen from "./screen/CartScreen";
 import SignInScreen from "./screen/SignInScreen";
 import RegisterScreen from "./screen/RegisterScreen";
 import ShippingAddressScreen from "./screen/ShippingAddressScreen";
+import PaymentMethodScreen from "./screen/PaymentMethodScreen";
+import PlaceOrderScreen from "./screen/PlaceOrderScreen";
 
 function App() {
     return (
@@ -18,7 +20,10 @@ function App() {
                         <Route exact path="/product/:productId"> <ProductScreen/> </Route>
                         <Route exact path='/signin'><SignInScreen/> </Route>
                         <Route exact path="/register"><RegisterScreen/></Route>
-                        <Route exact path="/shipping" > <ShippingAddressScreen/> </Route>
+                        <Route exact path="/shipping"> <ShippingAddressScreen/> </Route>
+                         <Route exact path="/payment"> <PaymentMethodScreen/> </Route>
+                        <Route exact path="/placeorder"> <PlaceOrderScreen/> </Route>
+                        <Route exact path="/category/:id"> <HomeScreen/> </Route>
                         <Route exact path="/"> <HomeScreen/> </Route>
                     </Switch>
                 </main>

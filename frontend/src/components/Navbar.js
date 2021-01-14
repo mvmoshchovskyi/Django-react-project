@@ -1,22 +1,33 @@
 import React from 'react';
-import {Link} from "react-router-dom";
-import {connect, } from "react-redux";
+import {BrowserRouter as Router, Link, Route} from "react-router-dom";
+import {connect,} from "react-redux";
 import {logout} from "../actions/authActions";
 import PropTypes from "prop-types";
 import Alert from "./Alert";
+import SearchBox from "./SearchBox";
 
-const Navbar = ({cartItems,userInfo,logout}) => {
+const Navbar = ({cartItems, userInfo, logout}) => {
 
     const signoutHandler = () => {
-      logout();
+        logout();
     }
     return (
-        <div>р
+        <div>
             <header className="row">
                 <div>
                     <Link className="brand" to="/">
-                        My Shop
+                        Shop
                     </Link>
+                </div>
+                <div>
+                    <Router>
+                        <Route
+                            render={({history}) => (
+                                <SearchBox history={history}></SearchBox>
+                            )}
+                        ></Route>
+                    </Router>
+
                 </div>
                 <div>
                     <Link to="/cart">
@@ -43,17 +54,19 @@ const Navbar = ({cartItems,userInfo,logout}) => {
                     )}
                 </div>
             </header>
-              <Alert />
+            <Alert/>
         </div>
     );
 }
 
 Navbar.propTypes = {
     cartItems: PropTypes.array,
-    // userInfo: PropTypes.array,
+    userInfo: PropTypes.string,
+    logout: PropTypes.func,
+
 }
 const mapStateToProps = state => ({
     cartItems: state.cart.cartItems,
-    userInfo:state.auth.userInfo
+    userInfo: state.auth.userInfo
 })
 export default connect(mapStateToProps, {logout})(Navbar)

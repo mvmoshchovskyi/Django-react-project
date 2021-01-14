@@ -4,16 +4,18 @@ import {connect} from 'react-redux'
 import MessageBox from "../components/MessageBox";
 import LoadingBox from "../components/LoadingBox";
 import Product from '../components/Product';
+import Pagination from "../components/Pagination";
 import {listProducts} from "../actions/productActions";
 
-const HomeScreen = ({products,loading,error,listProducts}) => {
+const HomeScreen = ({products, loading, error, listProducts, totalResults}) => {
 
-    useEffect(()=>{
+    useEffect(() => {
         listProducts()
-    },[listProducts])
+    }, [listProducts])
+
 
     return (
-        <div>
+        <>
             {loading
                 ? <LoadingBox></LoadingBox>
                 : error
@@ -23,19 +25,26 @@ const HomeScreen = ({products,loading,error,listProducts}) => {
                             <Product key={product.id} product={product}></Product>
                         ))}
                     </div>)}
-        </div>
+            {
+                totalResults > 2 &&
+                <Pagination/>
+
+            }
+        </>
     );
 }
 HomeScreen.propTypes = {
-    login: PropTypes.func,
     products: PropTypes.array,
     loading: PropTypes.bool,
     error: PropTypes.bool,
+    totalResults: PropTypes.number,
+    listProducts: PropTypes.func,
 }
 
 const mapStateToProps = state => ({
     products: state.productList.products,
     loading: state.productList.loading,
-    error: state.productList.error
+    error: state.productList.error,
+    totalResults: state.productList.totalResults,
 })
-export default connect(mapStateToProps ,{listProducts})(HomeScreen)
+export default connect(mapStateToProps, {listProducts})(HomeScreen)

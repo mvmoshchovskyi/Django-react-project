@@ -272,3 +272,52 @@ img.large {
 .table button {
   margin: 0 0.2rem;
 }
+/* Pagination */
+
+.pagination-container {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.pagination-container > div {
+  padding-top: 10px;
+}
+
+.paginate-ctn {
+  display: flex;
+}
+
+.round-effect {
+  color: #FFFFFF;
+  background-color: #26272b;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  padding-left: 3px;
+  padding-right: 3px;
+  padding-top:3px;
+  border-radius: 50%;
+  height: 20px;
+  width:20px;
+  margin: 5px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 2px 4px rgba(0, 0, 0, 0.23);
+  text-decoration: none;
+}
+
+.round-effect:hover {
+  text-decoration: none;
+  background: #2472d3;
+  color: #FFF;
+}
+
+.active {
+  background: #2472d3;
+  color: #FFF;
+  -webkit-box-shadow: 0 2px 9px 2px rgba(0, 0, 0, 0.77);
+  -moz-box-shadow: 0 2px 9px 2px rgba(0, 0, 0, 0.77);
+  box-shadow: 0 2px 9px 2px rgba(0, 0, 0, 0.77);
+}

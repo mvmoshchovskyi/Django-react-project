@@ -4,7 +4,8 @@ User = get_user_model()
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import permissions
-
+from rest_framework.generics import RetrieveAPIView
+from .serializers import UserSerializer
 
 class SignupView(APIView):
     permission_classes = (permissions.AllowAny,)
@@ -28,5 +29,15 @@ class SignupView(APIView):
 
                     user.save()
                     return Response({'success': 'User created successfully'})
+                    # return Response({'user': user})
         else:
             return Response({'error': 'password do not match'})
+
+
+class GetCurrentUserView(RetrieveAPIView):
+    permission_classes = (permissions.AllowAny,)
+
+    def get(self, request, *args, **kwargs):
+        user = self.request.user
+        data = UserSerializer(user).data
+        return Response(data)

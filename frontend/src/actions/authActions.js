@@ -70,5 +70,6 @@ export const logout = () => dispatch => {
     localStorage.removeItem('userInfo');
     localStorage.removeItem('cartItems');
     localStorage.removeItem('token')
+    localStorage.removeItem('shippingAddress')
 
 }
