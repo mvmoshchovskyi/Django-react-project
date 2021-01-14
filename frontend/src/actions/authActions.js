@@ -48,7 +48,7 @@ export const signUp = ({name, email, password, password2}) => async dispatch => 
     const body = JSON.stringify({name, email, password, password2});
 
     try {
-        const res = await axios.post(`${process.env.REACT_APP_API_URL}/api/accounts/signup`, body, config);
+        const res = await axios.post(`${process.env.REACT_APP_API_URL}/api/accounts/register`, body, config);
 
         dispatch({
             type: SIGNUP_SUCCESS,

@@ -9,13 +9,17 @@ from rest_framework_simplejwt.views import (
 )
 
 urlpatterns = [
+                  path('admin/', admin.site.urls),
                   path('api-auth/', include('rest_framework.urls')),
                   path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
                   path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
                   path('api/accounts/', include('accounts.urls')),
-                  path('admin/', admin.site.urls),
+
                   path('api/products/', include('products.urls')),
-                  path('api/orders/', include('order.urls'))
+                  path('api/orders/', include('order.urls')),
+                  path('api/carts/', include('order.urls')),
+                  path('api/address/', include('order.urls'))
+
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 urlpatterns += [re_path(r'^.*', TemplateView.as_view(template_name='index.html'))]

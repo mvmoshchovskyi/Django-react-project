@@ -14,15 +14,17 @@ const PlaceOrderScreen = ({shippingAddress, paymentMethod, loading, error, cart}
     if (!paymentMethod) {
         history.push('/payment');
     }
+
     const toPrice = (num) => Number(num.toFixed(2));
     cart.itemsPrice = toPrice(
         cart.cartItems.reduce((a, c) => a + c.qty * c.price, 0)
     );
     cart.delivery = toPrice(0.15 * cart.itemsPrice);
     cart.totalPrice = cart.itemsPrice +  cart.delivery;
-    console.log(cart)
+
     const placeOrderHandler = () => {
-        createOrder({ ...cart, orderItems: cart.cartItems })
+        // createOrder({ ...cart, orderItems: cart.cartItems })
+        createOrder({ itemsPrice: cart.itemsPrice, total_price: cart.totalPrice, delivery: cart.delivery, paymentMethod,shippingAddress})
     }
     return (
         <div>

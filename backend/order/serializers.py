@@ -6,4 +6,9 @@ class OrderSerializer(ModelSerializer):
     class Meta:
         model = OrderModel
         fields = '__all__'
-        # fields = 'paymentMethod,items_price,delivery_price,total_price,is_paid,created'
+
+
+# class TestSerializer(ModelSerializer):
+#     class Meta:
+#         model = TestModel
+#         fields = '__all__'

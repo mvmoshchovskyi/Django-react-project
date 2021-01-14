@@ -2,7 +2,7 @@ from rest_framework.serializers import ModelSerializer
 from .models import ShippingAddressModel
 
 
-class ShippingAddressModelSerializer(ModelSerializer):
+class ShippingAddressSerializer(ModelSerializer):
     class Meta:
         model = ShippingAddressModel
         fields = '__all__'

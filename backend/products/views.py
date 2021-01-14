@@ -4,7 +4,7 @@ from .models import ProductsModel
 from rest_framework import permissions
 from rest_framework import filters
 from django_filters.rest_framework import DjangoFilterBackend
-# from rest_framework_simplejwt.authentication import JWTAuthentication
+from rest_framework_simplejwt.authentication import JWTAuthentication
 
 class ProductListView(ListAPIView):
     permission_classes = [permissions.AllowAny, ]
@@ -16,10 +16,9 @@ class ProductListView(ListAPIView):
 
 
 
-
-
 class ProductDetailView(RetrieveUpdateDestroyAPIView):
-    permission_classes = [permissions.AllowAny, ]
+    permission_classes = [permissions.IsAuthenticated, ]
+    authentication_classes = [JWTAuthentication]
     queryset = ProductsModel.objects.all()
     serializer_class = ProductSerializer
 

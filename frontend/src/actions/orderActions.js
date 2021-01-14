@@ -7,28 +7,58 @@ import {
 } from "../constants/orderConstnts";
 
 export const createOrder = (order) => async (dispatch, getState) => {
-  dispatch({ type: ORDER_CREATE_REQUEST, payload: order });
-  try {
-    // const {
-    //   userSignin: { userInfo },
-    // } = getState();
-    const { data } = await Axios.post(`${process.env.REACT_APP_API_URL}/api/orders/`, order,
-        {
-      // headers: {
-      //   Authorization: `Bearer ${userInfo.token}`,
-      // },
+    console.log(order)
+    dispatch({type: ORDER_CREATE_REQUEST, payload: order});
+    try {
+        const token =  getState().auth.token
+        // const config = {
+        //     headers: {
+        //         authorization: `Bearer ${token}`,
+        //     }
+        // }
+        const {data} = await Axios.post(`${process.env.REACT_APP_API_URL}/api/orders/`, order, //config
+           //    axios.post('/api/orders/', {products: productsArr, quantities: quantitiesArr, total_price: totalPrice.toFixed(2), delivery_method: shippingData.deliveryMethod, payment_method: billingData.paymentMethod})
+        );
+        console.log(data)
+        dispatch({type: ORDER_CREATE_SUCCESS, payload: data.order});
+        // dispatch({ type: CART_EMPTY });
+        localStorage.removeItem('cartItems');
+    } catch (error) {
+        dispatch({
+            type: ORDER_CREATE_FAIL,
+            payload:
+                error.response && error.response.data.message
+                    ? error.response.data.message
+                    : error.message,
+        });
     }
-    );
-    dispatch({ type: ORDER_CREATE_SUCCESS, payload: data.order });
-    // dispatch({ type: CART_EMPTY });
-    // localStorage.removeItem('cartItems');
-  } catch (error) {
-    dispatch({
-      type: ORDER_CREATE_FAIL,
-      payload:
-        error.response && error.response.data.message
-          ? error.response.data.message
-          : error.message,
-    });
-  }
+}
+
+export const placeOrder = (items, shippingData, billingData) => {
+    return dispatch => {
+        let totalPrice = 0
+        let productsArr = []
+        let quantitiesArr = []
+
+       items.forEach((element) => {
+            totalPrice += element.product.price * element.quantity
+            productsArr.push(element.product.name)
+            quantitiesArr.push(element.quantity)
+
+            let updatedQuantity = element.product.quantity - element.quantity
+            Axios.put(`/api/products/${element.product.id}/`, {category: element.product.category, name: element.product.name, price: element.product.price, quantity: updatedQuantity})
+        })
+
+        Axios.post('/api/orders/', {products: productsArr, quantities: quantitiesArr, total_price: totalPrice.toFixed(2), delivery_method: shippingData.deliveryMethod, payment_method: billingData.paymentMethod})
+            .then((res) => {
+                console.log(("Placing order successfully."));
+            })
+
+        // dispatch(clearCart())
+        // if (shippingData.rememberDetails !== true) {
+        //     dispatch(clearShippingOptions())
+        // }
+        //
+        // dispatch(clearBillingOptions())
+    }
 }

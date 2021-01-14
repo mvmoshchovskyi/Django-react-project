@@ -9,18 +9,26 @@ import {connect} from "react-redux";
 
 
 const RegisterScreen = ({setAlert, signUp, isAuthenticated, loading, error}) => {
+	const initialFormData = Object.freeze({
+		email: '',
+		username: '',
+		password: '',
+        password2: ''
+	});
+
 
     const [formData, setFormData] = useState({
-        name: '',
-        email: '',
-        password: '',
-        password2: ''
+        initialFormData
+        // name: '',
+        // email: '',
+        // password: '',
+        // password2: ''
     });
 
     const {name, email, password, password2} = formData;
 
-    const onChange = e => setFormData({...formData, [e.target.name]: e.target.value});
-
+    const handleChange = e => setFormData({...formData, [e.target.name]: e.target.value.trim()});
+    console.log(initialFormData.username)
     const submitHandler = e => {
         e.preventDefault();
 
@@ -41,6 +49,7 @@ const RegisterScreen = ({setAlert, signUp, isAuthenticated, loading, error}) => 
         if (isAuthenticated) {
             history.push(redirect);
         }
+        // history.push('login')
     }, [history, redirect, isAuthenticated]);
 
     return (
@@ -58,8 +67,8 @@ const RegisterScreen = ({setAlert, signUp, isAuthenticated, loading, error}) => 
                         type='text'
                         placeholder='Name'
                         name='name'
-                        value={name}
-                        onChange={e => onChange(e)}
+                        // value={name}
+                        onChange={handleChange}
                         required
                     ></input>
                 </div>
@@ -70,8 +79,8 @@ const RegisterScreen = ({setAlert, signUp, isAuthenticated, loading, error}) => 
                         type='email'
                         placeholder='Email'
                         name='email'
-                        value={email}
-                        onChange={e => onChange(e)}
+                        // value={email}
+                        onChange={handleChange}
                         required
                     ></input>
                 </div>
@@ -82,8 +91,8 @@ const RegisterScreen = ({setAlert, signUp, isAuthenticated, loading, error}) => 
                         type='password'
                         placeholder='Password'
                         name='password'
-                        value={password}
-                        onChange={e => onChange(e)}
+                        // value={password}
+                        onChange={handleChange}
                         minLength='6'
                     ></input>
                 </div>
@@ -94,8 +103,8 @@ const RegisterScreen = ({setAlert, signUp, isAuthenticated, loading, error}) => 
                         type='password'
                         placeholder='Confirm Password'
                         name='password2'
-                        value={password2}
-                        onChange={e => onChange(e)}
+                        // value={password2}
+                        onChange={handleChange}
                         minLength='6'
                     ></input>
                 </div>

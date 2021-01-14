@@ -15,7 +15,7 @@ import {
     NUMBER_PAGES
 } from '../constants/productConstants'
 
-export const listProducts = (number=1) => async dispatch => {
+export const listProducts = (number = 1) => async dispatch => {
     dispatch({
         type: PRODUCT_LIST_REQUEST,
     });
@@ -27,10 +27,17 @@ export const listProducts = (number=1) => async dispatch => {
         dispatch({type: PRODUCT_LIST_FAIL, payload: error.message});
     }
 };
-export const detailsProduct = (productId) => async dispatch => {
+export const detailsProduct = (productId) => async (dispatch, getState) => {
     dispatch({type: PRODUCT_DETAILS_REQUEST, payload: productId});
     try {
-        const {data} = await Axios.get(`${process.env.REACT_APP_API_URL}/api/products/${productId}`);
+        const token =  getState().auth.token
+        console.log(token)
+        const config = {
+            headers: {
+                authorization: `Bearer ${token}`,
+            }
+        }
+        const {data} = await Axios.get(`${process.env.REACT_APP_API_URL}/api/products/${productId}`,config);
 
         dispatch({type: PRODUCT_DETAILS_SUCCESS, payload: data});
     } catch (error) {
@@ -60,10 +67,12 @@ export const productSearch = (name) => async dispatch => {
     }
 };
 export const findListProductsByNumber = (number) => async dispatch => {
+
     dispatch({
         type: PRODUCT_LIST_REQUEST,
     });
     try {
+
         const {data} = await Axios.get(`${process.env.REACT_APP_API_URL}/api/products/?page=${number}`);
         dispatch({type: PRODUCT_LIST_SUCCESS, payload: data});
     } catch (error) {

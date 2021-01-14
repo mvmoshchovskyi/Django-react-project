@@ -1,11 +1,11 @@
 from django.contrib.auth import get_user_model
-
 User = get_user_model()
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import permissions
-from rest_framework.generics import RetrieveAPIView
 from .serializers import UserSerializer
+from rest_framework import status
+
 
 class SignupView(APIView):
     permission_classes = (permissions.AllowAny,)
@@ -34,10 +34,13 @@ class SignupView(APIView):
             return Response({'error': 'password do not match'})
 
 
-class GetCurrentUserView(RetrieveAPIView):
+class CustomUserCreate(APIView):
     permission_classes = (permissions.AllowAny,)
 
-    def get(self, request, *args, **kwargs):
-        user = self.request.user
-        data = UserSerializer(user).data
-        return Response(data)
+    def post(self, request):
+        user_serializer = UserSerializer(data=request.data)
+        if user_serializer.is_valid():
+            user = user_serializer.save()
+            if user:
+                return Response(status=status.HTTP_201_CREATED)
+        return Response(user_serializer.errors, status=status.HTTP_400_BAD_REQUEST)

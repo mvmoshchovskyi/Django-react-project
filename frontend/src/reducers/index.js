@@ -3,6 +3,7 @@ import {alertReducer} from './alertReducers'
 import {authReducer} from './authReducers'
 import {productListReducer, productDetailsReducer} from './productReducers'
 import {cartReducer} from "./cartReducers";
+import {orderCreateReducer} from "./orderReducers";
 
 
 export default combineReducers({
@@ -11,6 +12,6 @@ export default combineReducers({
     productList : productListReducer ,
     productDetails :productDetailsReducer ,
     cart:cartReducer,
-    // order:orderReducer
+    order:orderCreateReducer
 
 })

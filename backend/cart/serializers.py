@@ -5,4 +5,5 @@ from .models import CartItemsModel
 class CartItemsSerializer(ModelSerializer):
     class Meta:
         model = CartItemsModel
-        fields = 'name,qty,image,price'
+        fields = '__all__'
+
