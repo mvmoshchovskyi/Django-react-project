@@ -8,7 +8,6 @@ from rest_framework_simplejwt.authentication import JWTAuthentication
 
 class ProductListView(ListAPIView):
     permission_classes = [permissions.AllowAny, ]
-    # authentication_classes = [JWTAuthentication]
     queryset = ProductsModel.objects.all()
     serializer_class = ProductSerializer
     page_size = 1000
@@ -17,7 +16,7 @@ class ProductListView(ListAPIView):
 
 
 class ProductDetailView(RetrieveUpdateDestroyAPIView):
-    permission_classes = [permissions.IsAuthenticated, ]
+    permission_classes = [permissions.AllowAny, ]
     authentication_classes = [JWTAuthentication]
     queryset = ProductsModel.objects.all()
     serializer_class = ProductSerializer

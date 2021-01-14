@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect,} from 'react-redux';
-import {Link, useHistory} from 'react-router-dom';
+import {Link, useHistory, Redirect} from 'react-router-dom';
 import CheckoutSteps from "../components/CheckautSteps";
 import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MessageBox';
@@ -8,8 +8,8 @@ import PropTypes from "prop-types";
 import {createOrder} from '../actions/orderActions'
 
 
-const PlaceOrderScreen = ({shippingAddress, paymentMethod, loading, error, cart}) => {
-
+const PlaceOrderScreen = ({shippingAddress, paymentMethod, loading, error, cart, createOrder}) => {
+    console.log(shippingAddress)
     let history = useHistory()
     if (!paymentMethod) {
         history.push('/payment');
@@ -20,12 +20,21 @@ const PlaceOrderScreen = ({shippingAddress, paymentMethod, loading, error, cart}
         cart.cartItems.reduce((a, c) => a + c.qty * c.price, 0)
     );
     cart.delivery = toPrice(0.15 * cart.itemsPrice);
-    cart.totalPrice = cart.itemsPrice +  cart.delivery;
+    cart.totalPrice = cart.itemsPrice + cart.delivery;
 
     const placeOrderHandler = () => {
         // createOrder({ ...cart, orderItems: cart.cartItems })
-        createOrder({ itemsPrice: cart.itemsPrice, total_price: cart.totalPrice, delivery: cart.delivery, paymentMethod,shippingAddress})
+        createOrder({
+            items_price: cart.itemsPrice,
+            total_price: cart.totalPrice,
+            delivery_price: cart.delivery,
+            payment_method: paymentMethod
+        })
+
+        history.push('/liqpay');
     }
+
+
     return (
         <div>
             <CheckoutSteps step1 step2 step3 step4></CheckoutSteps>
@@ -117,7 +126,7 @@ const PlaceOrderScreen = ({shippingAddress, paymentMethod, loading, error, cart}
                                     className="primary block"
                                     disabled={cart.cartItems.length === 0}
                                 >
-                                    Place Order
+                                   Buy Order
                                 </button>
                             </li>
                             {loading && <LoadingBox></LoadingBox>}
@@ -132,9 +141,10 @@ const PlaceOrderScreen = ({shippingAddress, paymentMethod, loading, error, cart}
 PlaceOrderScreen.propTypes = {
     loading: PropTypes.bool,
     error: PropTypes.bool,
-    shippingAddress:PropTypes.object,
+    shippingAddress: PropTypes.object,
     paymentMethod: PropTypes.string,
-    cart:PropTypes.object
+    cart: PropTypes.object,
+    createOrder: PropTypes.func
 }
 const mapStateToProps = state => ({
     loading: state.productList.loading,
@@ -144,4 +154,4 @@ const mapStateToProps = state => ({
     cart: state.cart,
 
 })
-export default connect(mapStateToProps,)(PlaceOrderScreen)
+export default connect(mapStateToProps, {createOrder})(PlaceOrderScreen)

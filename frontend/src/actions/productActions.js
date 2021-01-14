@@ -30,14 +30,8 @@ export const listProducts = (number = 1) => async dispatch => {
 export const detailsProduct = (productId) => async (dispatch, getState) => {
     dispatch({type: PRODUCT_DETAILS_REQUEST, payload: productId});
     try {
-        const token =  getState().auth.token
-        console.log(token)
-        const config = {
-            headers: {
-                authorization: `Bearer ${token}`,
-            }
-        }
-        const {data} = await Axios.get(`${process.env.REACT_APP_API_URL}/api/products/${productId}`,config);
+
+        const {data} = await Axios.get(`${process.env.REACT_APP_API_URL}/api/products/${productId}`,);
 
         dispatch({type: PRODUCT_DETAILS_SUCCESS, payload: data});
     } catch (error) {

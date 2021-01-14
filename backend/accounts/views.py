@@ -7,33 +7,6 @@ from .serializers import UserSerializer
 from rest_framework import status
 
 
-class SignupView(APIView):
-    permission_classes = (permissions.AllowAny,)
-
-    def post(self, request, format=None):
-        data = self.request.data
-
-        name = data['name']
-        email = data['email']
-        password = data['password']
-        password2 = data['password2']
-
-        if password == password2:
-            if User.objects.filter(email=email).exists():
-                return Response({'error': ' Email already exists'})
-            else:
-                if len(password) < 6:
-                    return Response({'error': "password must be least 6 characters"})
-                else:
-                    user = User.objects.create_user(email=email, password=password, name=name)
-
-                    user.save()
-                    return Response({'success': 'User created successfully'})
-                    # return Response({'user': user})
-        else:
-            return Response({'error': 'password do not match'})
-
-
 class CustomUserCreate(APIView):
     permission_classes = (permissions.AllowAny,)
 
@@ -44,3 +17,30 @@ class CustomUserCreate(APIView):
             if user:
                 return Response(status=status.HTTP_201_CREATED)
         return Response(user_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+# class SignupView(APIView):
+#     permission_classes = (permissions.AllowAny,)
+#
+#     def post(self, request, format=None):
+#         data = self.request.data
+#
+#         name = data['name']
+#         email = data['email']
+#         password = data['password']
+#         password2 = data['password2']
+#
+#         if password == password2:
+#             if User.objects.filter(email=email).exists():
+#                 return Response({'error': ' Email already exists'})
+#             else:
+#                 if len(password) < 6:
+#                     return Response({'error': "password must be least 6 characters"})
+#                 else:
+#                     user = User.objects.create_user(email=email, password=password, name=name)
+#
+#                     user.save()
+#                     return Response({'success': 'User created successfully'})
+#                     # return Response({'user': user})
+#         else:
+#             return Response({'error': 'password do not match'})

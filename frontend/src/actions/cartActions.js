@@ -2,14 +2,9 @@ import {CART_ADD_ITEM, CART_REMOVE_ITEM ,CART_SAVE_SHIPPING_ADDRESS, CART_SAVE_P
 import Axios from "axios";
 
 export const addToCart = (productId, qty) => async (dispatch, getState) => {
-        const token =  getState().auth.token
 
-        const config = {
-            headers: {
-                authorization: `Bearer ${token}`,
-            }
-        }
-    const {data} = await Axios.get(`${process.env.REACT_APP_API_URL}/api/products/${productId}`,config);
+
+    const {data} = await Axios.get(`${process.env.REACT_APP_API_URL}/api/products/${productId}`);
     dispatch({
         type: CART_ADD_ITEM,
         payload: {

@@ -3,24 +3,25 @@ import {
     ORDER_CREATE_REQUEST,
     ORDER_CREATE_SUCCESS,
     ORDER_CREATE_FAIL,
-    ORDER_CREATE_RESET
+
 } from "../constants/orderConstnts";
 
 export const createOrder = (order) => async (dispatch, getState) => {
-    console.log(order)
+
     dispatch({type: ORDER_CREATE_REQUEST, payload: order});
     try {
-        const token =  getState().auth.token
-        // const config = {
-        //     headers: {
-        //         authorization: `Bearer ${token}`,
-        //     }
-        // }
-        const {data} = await Axios.post(`${process.env.REACT_APP_API_URL}/api/orders/`, order, //config
-           //    axios.post('/api/orders/', {products: productsArr, quantities: quantitiesArr, total_price: totalPrice.toFixed(2), delivery_method: shippingData.deliveryMethod, payment_method: billingData.paymentMethod})
+        const token = getState().auth.token
+
+        const config = {
+            headers: {
+                authorization: `Bearer ${token}`,
+            }
+        }
+        const {data} = await Axios.post(`${process.env.REACT_APP_API_URL}/api/orders/create/`, order, config
+
         );
         console.log(data)
-        dispatch({type: ORDER_CREATE_SUCCESS, payload: data.order});
+        dispatch({type: ORDER_CREATE_SUCCESS, payload: data});
         // dispatch({ type: CART_EMPTY });
         localStorage.removeItem('cartItems');
     } catch (error) {
@@ -40,16 +41,27 @@ export const placeOrder = (items, shippingData, billingData) => {
         let productsArr = []
         let quantitiesArr = []
 
-       items.forEach((element) => {
+        items.forEach((element) => {
             totalPrice += element.product.price * element.quantity
             productsArr.push(element.product.name)
             quantitiesArr.push(element.quantity)
 
             let updatedQuantity = element.product.quantity - element.quantity
-            Axios.put(`/api/products/${element.product.id}/`, {category: element.product.category, name: element.product.name, price: element.product.price, quantity: updatedQuantity})
+            Axios.put(`/api/products/${element.product.id}/`, {
+                category: element.product.category,
+                name: element.product.name,
+                price: element.product.price,
+                quantity: updatedQuantity
+            })
         })
 
-        Axios.post('/api/orders/', {products: productsArr, quantities: quantitiesArr, total_price: totalPrice.toFixed(2), delivery_method: shippingData.deliveryMethod, payment_method: billingData.paymentMethod})
+        Axios.post('/api/orders/', {
+            products: productsArr,
+            quantities: quantitiesArr,
+            total_price: totalPrice.toFixed(2),
+            delivery_method: shippingData.deliveryMethod,
+            payment_method: billingData.paymentMethod
+        })
             .then((res) => {
                 console.log(("Placing order successfully."));
             })
