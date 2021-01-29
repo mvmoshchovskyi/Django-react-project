@@ -7,10 +7,10 @@ import {
 } from "../constants/orderConstnts";
 
 export const createOrder = (order) => async (dispatch, getState) => {
-
+console.log('ORS',order)
     dispatch({type: ORDER_CREATE_REQUEST, payload: order});
     try {
-        const token = getState().auth.token
+        const token = getState().auth.userInfo.access
 
         const config = {
             headers: {

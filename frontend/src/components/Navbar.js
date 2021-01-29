@@ -6,11 +6,12 @@ import PropTypes from "prop-types";
 import Alert from "./Alert";
 import SearchBox from "./SearchBox";
 
-const Navbar = ({cartItems, userInfo, logout}) => {
+const Navbar = ({cartItems, userInfo, logout }) => {
 
     const signoutHandler = () => {
         logout();
     }
+
     return (
         <div>
             <header className="row">
@@ -36,6 +37,7 @@ const Navbar = ({cartItems, userInfo, logout}) => {
                             <span className="badge">{cartItems.length}</span>
                         )}
                     </Link>
+
                     {userInfo ? (
                         <div className="dropdown">
                             <Link to="#">
@@ -64,9 +66,11 @@ Navbar.propTypes = {
     userInfo: PropTypes.string,
     logout: PropTypes.func,
 
+
 }
 const mapStateToProps = state => ({
     cartItems: state.cart.cartItems,
-    userInfo: state.auth.userInfo
+    userInfo: state.auth.userInfo.name
+
 })
 export default connect(mapStateToProps, {logout})(Navbar)

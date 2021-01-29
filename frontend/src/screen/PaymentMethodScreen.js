@@ -7,11 +7,12 @@ import {useHistory} from "react-router-dom";
 
 const PaymentMethodScreen = ({savePaymentMethod, shippingAddress}) => {
 
+
     const [paymentMethod, setPaymentMethod] = useState('liqPay');
 
     let history = useHistory()
 
-    if (!shippingAddress.address) {
+    if (!shippingAddress) {
         history.push('/shipping');
     }
     const submitHandler = (e) => {
@@ -68,6 +69,6 @@ PaymentMethodScreen.propTypes = {
     savePaymentMethod: PropTypes.func
 }
 const mapStateToProps = state => ({
-   shippingAddress: state.cart.shippingAddress,
+   shippingAddress: state.address.shippingAddress,
 })
 export default connect(mapStateToProps, {savePaymentMethod})(PaymentMethodScreen)

@@ -6,13 +6,13 @@ from rest_framework import filters
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework_simplejwt.authentication import JWTAuthentication
 
+
 class ProductListView(ListAPIView):
     permission_classes = [permissions.AllowAny, ]
     queryset = ProductsModel.objects.all()
     serializer_class = ProductSerializer
     page_size = 1000
     page_size_query_param = 'page_size'
-
 
 
 class ProductDetailView(RetrieveUpdateDestroyAPIView):

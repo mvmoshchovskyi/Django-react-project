@@ -1,11 +1,11 @@
 import React, {useEffect} from 'react';
 import {useParams, useLocation, Link, useHistory} from "react-router-dom";
 import {connect} from "react-redux";
-import {addToCart, removeFromCart} from "../actions/cartActions";
+import {addToCart, removeFromCart,checkoutHandler} from "../actions/cartActions";
 import MessageBox from "../components/MessageBox";
 import PropTypes from "prop-types";
 
-const CartScreen = ({userInfo, cartItems, addToCart, removeFromCart}) => {
+const CartScreen = ({userInfo, cartItems, addToCart, removeFromCart,   shippingAddress, checkoutHandler}) => {
     const {cartId} = useParams()
     let history = useHistory();
     let location = useLocation();
@@ -23,8 +23,12 @@ const CartScreen = ({userInfo, cartItems, addToCart, removeFromCart}) => {
         removeFromCart(id)
     };
 
-    const checkoutHandler = () => {
-        userInfo ? history.push('/shipping') : history.push('/signin?redirect=shipping')
+    const checkout = () => {
+        // checkoutHandler()
+
+
+        userInfo  ? history.push('/shipping') : history.push('/signin?redirect=shipping')
+
     }
 
     return (
@@ -91,7 +95,7 @@ const CartScreen = ({userInfo, cartItems, addToCart, removeFromCart}) => {
                         <li>
                             <button
                                 type="button"
-                                onClick={checkoutHandler}
+                                onClick={checkout}
                                 className="primary block"
                                 disabled={cartItems.length === 0}
                             >
@@ -112,6 +116,7 @@ CartScreen.propTypes = {
 }
 const mapDispatchToProps = state => ({
     cartItems: state.cart.cartItems,
-    userInfo: state.auth.userInfo,
+    userInfo: state.auth.userInfo.name,
+      shippingAddress: state.address.shippingAddress,
 })
-export default connect(mapDispatchToProps, {addToCart, removeFromCart})(CartScreen);
+export default connect(mapDispatchToProps, {addToCart, removeFromCart, checkoutHandler})(CartScreen);

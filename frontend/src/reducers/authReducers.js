@@ -4,37 +4,32 @@ import {
     LOGIN_SUCCESS,
     LOGIN_FAIL,
     LOGOUT,
-    SET_USER_INFO
 } from "../constants/authConstants";
 
 const initialState = {
-    token: localStorage.getItem('token'),
+    // token: localStorage.getItem('token'),
     isAuthenticated: false,
     loading: false,
+    error: false,
     userInfo: localStorage.getItem('userInfo')
-        ? localStorage.getItem('userInfo')
+        ? JSON.parse(localStorage.getItem('userInfo'))
         : '',
-    error: false
+
 }
 
 export const authReducer = (state = initialState, action) => {
     const {type, payload} = action
     switch (type) {
         case  LOGIN_SUCCESS:
-            // localStorage.setItem('token', payload.access)
+
             return {
                 ...state,
                 token: payload.access,
                 isAuthenticated: true,
                 loading: false,
-
-            }
-        case SET_USER_INFO:
-            // localStorage.setItem('userInfo', payload)
-            return {
-                ...state,
                 userInfo: payload
             }
+
         case SIGNUP_SUCCESS:
 
             return {

@@ -1,23 +1,28 @@
 import React, {useState} from 'react';
 import {connect} from 'react-redux';
-import {saveShippingAddress} from '../actions/cartActions';
+import {saveShippingAddress} from '../actions/addressActions';
 import CheckoutSteps from "../components/CheckautSteps";
 import PropTypes from "prop-types";
 import {useHistory} from "react-router-dom";
 
-const ShippingAddressScreen = ({saveShippingAddress}) => {
+const ShippingAddressScreen = ({saveShippingAddress, user}) => {
 
     const [formData, setFormData] = useState({
-        firstName: '',
-        lastName: '',
+        first_name: '',
+        last_name: '',
         address: '',
         city: '',
-        postalCode: '',
+        postal_code: '',
         phone: '',
     })
-
     let history = useHistory()
+    if (!user) {
+        history.push('/signin');
+    }
+
+
     const submitHandler = (e) => {
+
         e.preventDefault();
         saveShippingAddress(formData)
         history.push('/payment');
@@ -37,7 +42,7 @@ const ShippingAddressScreen = ({saveShippingAddress}) => {
                     <input
                         type="text"
                         id="firstName"
-                        name='firstName'
+                        name='first_name'
                         placeholder="Enter first name"
                         // value={fullName}
                         onChange={(e) => onChangeHandler(e)}
@@ -49,7 +54,7 @@ const ShippingAddressScreen = ({saveShippingAddress}) => {
                     <input
                         type="text"
                         id="lastName"
-                        name="lastName"
+                        name="last_name"
                         placeholder="Enter last name"
                         // value={country}
                         onChange={(e) => onChangeHandler(e)}
@@ -85,7 +90,7 @@ const ShippingAddressScreen = ({saveShippingAddress}) => {
                     <input
                         type="text"
                         id="postalCode"
-                        name='postalCode'
+                        name='postal_code'
                         placeholder="Enter postal code"
                         // value={postalCode}
                         onChange={(e) => onChangeHandler(e)}
@@ -119,6 +124,6 @@ ShippingAddressScreen.propTypes = {
 
 }
 const mapStateToProps = state => ({
-
+    user: state.auth.userInfo
 })
 export default connect(mapStateToProps, {saveShippingAddress})(ShippingAddressScreen)

@@ -8,8 +8,9 @@ import PropTypes from "prop-types";
 import {createOrder} from '../actions/orderActions'
 
 
-const PlaceOrderScreen = ({shippingAddress, paymentMethod, loading, error, cart, createOrder}) => {
-    console.log(shippingAddress)
+const PlaceOrderScreen = ({userId, shippingAddress, paymentMethod, loading, error, cart, createOrder}) => {
+    console.log('address',shippingAddress)
+
     let history = useHistory()
     if (!paymentMethod) {
         history.push('/payment');
@@ -23,12 +24,15 @@ const PlaceOrderScreen = ({shippingAddress, paymentMethod, loading, error, cart,
     cart.totalPrice = cart.itemsPrice + cart.delivery;
 
     const placeOrderHandler = () => {
-        // createOrder({ ...cart, orderItems: cart.cartItems })
+        // console.log({ ...cart, order_items: cart.cartItems })
         createOrder({
             items_price: cart.itemsPrice,
             total_price: cart.totalPrice,
             delivery_price: cart.delivery,
-            payment_method: paymentMethod
+            payment_method: paymentMethod,
+            user: userId,
+            shipping_address: shippingAddress.id,
+            order_items:cart.cartItems
         })
 
         history.push('/liqpay');
@@ -45,10 +49,9 @@ const PlaceOrderScreen = ({shippingAddress, paymentMethod, loading, error, cart,
                             <div className="card card-body">
                                 <h2>Shipping</h2>
                                 <p>
-                                    <strong>Name:</strong> {cart.shippingAddress.firstName} {cart.shippingAddress.lastName}<br/>
-                                    <strong>Address: </strong> {cart.shippingAddress.address},
-                                    {cart.shippingAddress.city}, {shippingAddress.postalCode}
-                                    ,{cart.shippingAddress.country}
+                                    <strong>Name:</strong> {shippingAddress.first_name} {shippingAddress.last_name}<br/>
+                                    <strong>Address: </strong> {shippingAddress.address},
+                                    {shippingAddress.city}, {shippingAddress.postal_code}
                                 </p>
                             </div>
                         </li>
@@ -126,7 +129,7 @@ const PlaceOrderScreen = ({shippingAddress, paymentMethod, loading, error, cart,
                                     className="primary block"
                                     disabled={cart.cartItems.length === 0}
                                 >
-                                   Buy Order
+                                    Buy Order
                                 </button>
                             </li>
                             {loading && <LoadingBox></LoadingBox>}
@@ -149,9 +152,10 @@ PlaceOrderScreen.propTypes = {
 const mapStateToProps = state => ({
     loading: state.productList.loading,
     error: state.productList.error,
-    shippingAddress: state.cart.shippingAddress,
     paymentMethod: state.cart.paymentMethod,
     cart: state.cart,
+    userId: state.auth.userInfo.id,
+    shippingAddress: state.address.shippingAddress
 
 })
 export default connect(mapStateToProps, {createOrder})(PlaceOrderScreen)
