@@ -26,6 +26,7 @@ function App() {
                         <Route exact path="/shipping"> <ShippingAddressScreen/> </Route>
                          <Route exact path="/payment"> <PaymentMethodScreen/> </Route>
                         <Route exact path="/placeorder"> <PlaceOrderScreen/> </Route>
+                         <Route exact path="/order"> <OrderScreen/> </Route>
                         <Route exact path="/liqpay"> <LiqPayButton/> </Route>
                         <Route exact path="/category/:id"> <HomeScreen/> </Route>
                         <Route exact path="/"> <HomeScreen/> </Route>

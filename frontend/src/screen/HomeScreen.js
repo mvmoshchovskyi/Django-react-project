@@ -6,6 +6,8 @@ import LoadingBox from "../components/LoadingBox";
 import Product from '../components/Product';
 import Pagination from "../components/Pagination";
 import {listProducts} from "../actions/productActions";
+import {BrowserRouter as Router, Route} from "react-router-dom";
+import SearchBox from "../components/SearchBox";
 
 const HomeScreen = ({products, loading, error, listProducts, totalResults}) => {
 
@@ -20,7 +22,11 @@ const HomeScreen = ({products, loading, error, listProducts, totalResults}) => {
                 ? <LoadingBox></LoadingBox>
                 : error
                     ? <MessageBox variant='danger'>{error}</MessageBox>
-                    : (<div className="row center">
+                    :
+
+                    (
+                    <div className="row center">
+
                         {products.map((product) => (
                             <Product key={product.id} product={product}></Product>
                         ))}

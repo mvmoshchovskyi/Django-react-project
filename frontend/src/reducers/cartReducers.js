@@ -6,7 +6,9 @@ import {
 
     CART_CREATE_FAIL,
     CART_CREATE_REQUEST,
-    CART_CREATE_SUCCESS
+    CART_CREATE_SUCCESS,
+
+    CART_EMPTY
 } from "../constants/cartConstants";
 
 
@@ -48,8 +50,11 @@ export const cartReducer = (state = initialState, action) => {
             }
 
         case CART_CREATE_FAIL:
-            return {loading: false, error: payload};
+            return {loading: false, error: payload };
 
+        case CART_EMPTY:
+            return {...state,
+                loading: false, error: payload,cartItems:[]};
 
         case CART_SAVE_PAYMENT_METHOD:
             return {

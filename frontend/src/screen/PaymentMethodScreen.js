@@ -11,10 +11,10 @@ const PaymentMethodScreen = ({savePaymentMethod, shippingAddress}) => {
     const [paymentMethod, setPaymentMethod] = useState('liqPay');
 
     let history = useHistory()
-
-    if (!shippingAddress) {
-        history.push('/shipping');
-    }
+    //
+    // if (!shippingAddress) {
+    //     history.push('/shipping');
+    // }
     const submitHandler = (e) => {
         e.preventDefault();
         savePaymentMethod(paymentMethod)

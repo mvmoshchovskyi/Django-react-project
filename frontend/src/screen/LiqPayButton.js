@@ -1,28 +1,28 @@
-import React, { Component } from "react";
+import React from "react";
 
-import { LiqPayPay, LiqPaySubscribe } from "react-liqpay";
+import { LiqPayPay} from "react-liqpay";
 
 const LiqPayButton =()=>{
 
-  const payInfo = {
-    amount: 999,
-    currency: 'USD',
-    title: 'PAY'
-  }
+  // const payInfo = {
+  //   amount: 999,
+  //   currency: 'USD',
+  //   title: 'PAY'
+  // }
 
-  const ButtonComponent = () => (
-    <button style={{
-      backgroundColor: '#337ab7',
-      color: '#fff',
-      borderColor: '#2e6da4',
-      border: '1px solid transparent',
-      borderRadius: '4px',
-      padding: '6px 12px',
-      cursor: 'pointer'
-    }}>
-      {`${payInfo.title} ${payInfo.amount} ${payInfo.currency}`}
-    </button>
-  )
+  // const ButtonComponent = () => (
+  //   <button style={{
+  //     backgroundColor: '#337ab7',
+  //     color: '#fff',
+  //     borderColor: '#2e6da4',
+  //     border: '1px solid transparent',
+  //     borderRadius: '4px',
+  //     padding: '6px 12px',
+  //     cursor: 'pointer'
+  //   }}>
+  //     {`${payInfo.title} ${payInfo.amount} ${payInfo.currency}`}
+  //   </button>
+  // )
 
     return (
       <div style={{ display: "flex" }}>

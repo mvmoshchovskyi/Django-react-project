@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect,} from 'react-redux';
-import {Link, useHistory, Redirect} from 'react-router-dom';
+import {Link, useHistory, } from 'react-router-dom';
 import CheckoutSteps from "../components/CheckautSteps";
 import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MessageBox';
@@ -9,7 +9,6 @@ import {createOrder} from '../actions/orderActions'
 
 
 const PlaceOrderScreen = ({userId, shippingAddress, paymentMethod, loading, error, cart, createOrder}) => {
-    console.log('address',shippingAddress)
 
     let history = useHistory()
     if (!paymentMethod) {
@@ -35,7 +34,7 @@ const PlaceOrderScreen = ({userId, shippingAddress, paymentMethod, loading, erro
             order_items:cart.cartItems
         })
 
-        history.push('/liqpay');
+        history.push('/order');
     }
 
 

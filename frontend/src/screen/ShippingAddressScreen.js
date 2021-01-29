@@ -16,16 +16,16 @@ const ShippingAddressScreen = ({saveShippingAddress, user}) => {
         phone: '',
     })
     let history = useHistory()
+
     if (!user) {
         history.push('/signin');
     }
 
-
     const submitHandler = (e) => {
-
         e.preventDefault();
         saveShippingAddress(formData)
         history.push('/payment');
+
     };
     const onChangeHandler = (e) => {
         setFormData({...formData, [e.target.name]: e.target.value})

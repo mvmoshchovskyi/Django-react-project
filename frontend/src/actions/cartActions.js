@@ -7,7 +7,6 @@ import {
     CART_CREATE_FAIL
 } from "../constants/cartConstants";
 import Axios from "axios";
-import {ADDRESS_CREATE_SUCCESS} from "../constants/addressConstants";
 
 
 export const addToCart = (productId, qty) => async (dispatch, getState) => {

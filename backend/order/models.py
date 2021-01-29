@@ -9,8 +9,8 @@ class OrderModel(models.Model):
     class Meta:
         db_table = 'orders'
 
-    user = models.ForeignKey(UserAccount,  on_delete=models.CASCADE, related_name='order',default=2)
-    order_items = models.ForeignKey(CartItemsModel, related_name='cart_items', on_delete=models.CASCADE, default=1)
+    user = models.ForeignKey(UserAccount, on_delete=models.CASCADE, related_name='order', default=2)
+    order_items = models.ManyToManyField(CartItemsModel, related_name='order')
     shipping_address = models.ForeignKey(ShippingAddressModel, related_name='order_address',
                                          on_delete=models.CASCADE, default=3)
     payment_method = models.CharField(max_length=100, default='LiqPay')
