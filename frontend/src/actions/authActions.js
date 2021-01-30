@@ -19,7 +19,6 @@ export const login = (email, password) => async( dispatch,getState) => {
     const body = JSON.stringify({email, password})
     try {
         const res = await axios.post(`${process.env.REACT_APP_API_URL}/api/token/`, body, config)
-        // localStorage.setItem('token', res.data.access)
         dispatch({
             type: LOGIN_SUCCESS,
             payload: res.data
@@ -64,7 +63,6 @@ export const logout = () => dispatch => {
     dispatch({type: LOGOUT})
     localStorage.removeItem('userInfo');
     localStorage.removeItem('cartItems');
-    // localStorage.removeItem('token')
     localStorage.removeItem('shippingAddress')
 
 }
