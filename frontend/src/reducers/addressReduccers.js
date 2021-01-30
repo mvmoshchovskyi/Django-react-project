@@ -6,9 +6,11 @@ import {
 
 
 const initialState = {
-    shippingAddress: {},
-    loading:false,
-    error:false
+    shippingAddress: localStorage.getItem('shippingAddress')
+        ? JSON.parse(localStorage.getItem('shippingAddress'))
+        : {},
+    loading: false,
+    error: false
 }
 
 export const addressReducer = (state = initialState, action) => {

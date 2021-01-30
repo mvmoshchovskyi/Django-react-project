@@ -5,14 +5,23 @@ import {
     ORDER_CREATE_RESET
 } from "../constants/orderConstnts";
 
-export const orderCreateReducer = (state = {}, action) => {
+const initialState = {
+    orderDetail:{},
+    // orderDetail: localStorage.getItem('orderDetail')
+    //     ? JSON.parse(localStorage.getItem('orderDetail'))
+    //     : {},
+    loading: true,
+    error: false,
+}
+export const orderCreateReducer = (state = initialState, action) => {
     switch (action.type) {
         case ORDER_CREATE_REQUEST:
             return {loading: true};
         case ORDER_CREATE_SUCCESS:
-            return {loading: false, success: true, order: action.payload};
+            return {...state,
+                loading: false, error:false, orderDetail:  action.payload}
         case ORDER_CREATE_FAIL:
-            return {loading: false, error: action.payload};
+            return {loading: false, error: action.payload , };
         case ORDER_CREATE_RESET:
             return {};
         default:

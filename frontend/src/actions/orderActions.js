@@ -8,8 +8,8 @@ import {
 import {CART_EMPTY} from "../constants/cartConstants";
 
 export const createOrder = (order) => async (dispatch, getState) => {
-// console.log('ORS',order)
-    dispatch({type: ORDER_CREATE_REQUEST, payload: order});
+
+    dispatch({type: ORDER_CREATE_REQUEST});
     try {
         const token = getState().auth.userInfo.access
 
@@ -23,7 +23,7 @@ export const createOrder = (order) => async (dispatch, getState) => {
 
         dispatch({type: ORDER_CREATE_SUCCESS, payload: data});
         dispatch({type: CART_EMPTY});
-        localStorage.setItem('order', JSON.stringify(data));
+            // localStorage.setItem('orderDetail', JSON.stringify(getState().order.orderDetail));
         localStorage.removeItem('cartItems');
     } catch (error) {
         dispatch({

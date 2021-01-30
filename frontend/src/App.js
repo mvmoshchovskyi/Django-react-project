@@ -9,7 +9,6 @@ import RegisterScreen from "./screen/RegisterScreen";
 import ShippingAddressScreen from "./screen/ShippingAddressScreen";
 import PaymentMethodScreen from "./screen/PaymentMethodScreen";
 import PlaceOrderScreen from "./screen/PlaceOrderScreen";
-import OrderScreen from "./screen/OrderScreen";
 import LiqPayButton from "./screen/LiqPayButton";
 
 
@@ -26,7 +25,6 @@ function App() {
                         <Route exact path="/shipping"> <ShippingAddressScreen/> </Route>
                          <Route exact path="/payment"> <PaymentMethodScreen/> </Route>
                         <Route exact path="/placeorder"> <PlaceOrderScreen/> </Route>
-                         <Route exact path="/order"> <OrderScreen/> </Route>
                         <Route exact path="/liqpay"> <LiqPayButton/> </Route>
                         <Route exact path="/category/:id"> <HomeScreen/> </Route>
                         <Route exact path="/"> <HomeScreen/> </Route>

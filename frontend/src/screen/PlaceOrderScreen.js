@@ -34,7 +34,7 @@ const PlaceOrderScreen = ({userId, shippingAddress, paymentMethod, loading, erro
             order_items:cart.cartItems
         })
 
-        history.push('/order');
+        history.push('/liqpay');
     }
 
 

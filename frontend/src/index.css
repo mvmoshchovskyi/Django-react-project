@@ -321,3 +321,10 @@ img.large {
   -moz-box-shadow: 0 2px 9px 2px rgba(0, 0, 0, 0.77);
   box-shadow: 0 2px 9px 2px rgba(0, 0, 0, 0.77);
 }
+.liq_pay_pay {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20rem;
+}
