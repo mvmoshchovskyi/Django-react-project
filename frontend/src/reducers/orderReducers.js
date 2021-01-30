@@ -2,11 +2,15 @@ import {
     ORDER_CREATE_REQUEST,
     ORDER_CREATE_SUCCESS,
     ORDER_CREATE_FAIL,
-    ORDER_CREATE_RESET
+    ORDER_CREATE_RESET,
+
+    ORDER_DELETE_REQUEST,
+    ORDER_DELETE_SUCCESS,
+    ORDER_DELETE_FAIL,
 } from "../constants/orderConstnts";
 
 const initialState = {
-    orderDetail:{},
+    orderDetail: {},
     // orderDetail: localStorage.getItem('orderDetail')
     //     ? JSON.parse(localStorage.getItem('orderDetail'))
     //     : {},
@@ -18,10 +22,21 @@ export const orderCreateReducer = (state = initialState, action) => {
         case ORDER_CREATE_REQUEST:
             return {loading: true};
         case ORDER_CREATE_SUCCESS:
-            return {...state,
-                loading: false, error:false, orderDetail:  action.payload}
+            return {
+                ...state,
+                loading: false, error: false, orderDetail: action.payload
+            }
         case ORDER_CREATE_FAIL:
-            return {loading: false, error: action.payload , };
+            return {loading: false, error: action.payload,};
+        case ORDER_DELETE_REQUEST:
+            return {loading: true};
+        case ORDER_DELETE_SUCCESS:
+            return {
+            ...state,
+                loading: false, error: false, orderDetail: action.payload
+            }
+        case ORDER_DELETE_FAIL:
+            return {loading: false, error: action.payload,};
         case ORDER_CREATE_RESET:
             return {};
         default:

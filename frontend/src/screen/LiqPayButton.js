@@ -3,25 +3,32 @@ import {LiqPayPay} from "react-liqpay";
 import {connect,} from 'react-redux';
 import LoadingBox from "../components/LoadingBox";
 import MessageBox from "../components/MessageBox";
+import {deleteOrder} from '../actions/orderActions'
 import PropTypes from "prop-types";
+import {useHistory} from "react-router-dom";
 
 
-const LiqPayButton = ({orderDetail, loading, error, shippingAddress}) => {
-    console.log('ADR',shippingAddress.shippingAddress);
+const LiqPayButton = ({orderDetail, loading, error, shippingAddress, deleteOrder}) => {
+
+    let history = useHistory()
+    const handleDelete = () => {
+        deleteOrder(orderDetail.id)
+        history.push('/')
+    }
     const ButtonComponent = () => (
         <button style={{
             backgroundColor: 'green',
             color: '#fff',
             borderColor: '#2e6da4',
             border: '1px solid transparent',
-            borderRadius: '4px',
+            borderRadius: '6px',
             padding: '6px 12px',
             cursor: 'pointer',
 
 
         }}>
 
-            {`Please enter for Payment`}
+            {`Confirm & Payment`}
         </button>
     )
     return (
@@ -50,7 +57,9 @@ const LiqPayButton = ({orderDetail, loading, error, shippingAddress}) => {
                                         </li>
                                         <li>
                                             <div className="card card-body">
-                                                <h2>Payment</h2>
+                                                <p>
+                                                    <strong>Payment for Order N:</strong> {orderDetail.id}
+                                                </p>
                                                 <p>
                                                     <strong>Method:</strong> {orderDetail.payment_method}
                                                 </p>
@@ -67,13 +76,13 @@ const LiqPayButton = ({orderDetail, loading, error, shippingAddress}) => {
                                             </li>
                                             <li>
                                                 <div className="row">
-                                                    <div>Items</div>
+                                                    <div>Items price</div>
                                                     {orderDetail.items_price}
                                                 </div>
                                             </li>
                                             <li>
                                                 <div className="row">
-                                                    <div>Delivery</div>
+                                                    <div>Delivery price</div>
                                                     {orderDetail.delivery_price}
                                                 </div>
                                             </li>
@@ -91,20 +100,24 @@ const LiqPayButton = ({orderDetail, loading, error, shippingAddress}) => {
                                     </div>
                                 </div>
                             </div>
-
-                            <LiqPayPay
-                                publicKey={process.env.REACT_APP_PUBLIC_KEY}
-                                privateKey={process.env.REACT_APP_PRIVATE_KEY}
-                                description="Оплата за товар"
-                                orderId={Math.floor(1 + Math.random() * 900000000)}
-                                result_url="http://domain.com/user/account"
-                                server_url="http://server.domain.com/liqpay"
-                                product_description="Online shopping"
-                                amount={orderDetail.total_price}
-                                currency='UAH'
-                                style={{margin: "8px"}}
-                                extra={[<ButtonComponent key="1"/>]}
-                            />
+                            <div className='liq_pay_pay'>
+                                <LiqPayPay
+                                    publicKey={process.env.REACT_APP_PUBLIC_KEY}
+                                    privateKey={process.env.REACT_APP_PRIVATE_KEY}
+                                    description="Оплата за товар"
+                                    orderId={Math.floor(1 + Math.random() * 900000000)}
+                                    result_url="http://domain.com/user/account"
+                                    server_url="http://server.domain.com/liqpay"
+                                    product_description="Online shopping"
+                                    amount={orderDetail.total_price}
+                                    currency='UAH'
+                                    style={{margin: "8px"}}
+                                    extra={[<ButtonComponent key="1"/>]}
+                                />
+                            </div>
+                            <div>
+                                <button className='primary block' onClick={handleDelete}>Refuse from order</button>
+                            </div>
                         </div>)}
         </>
     );
@@ -123,4 +136,4 @@ const mapStateToProps = state => ({
     orderDetail: state.order.orderDetail,
     shippingAddress: state.address.shippingAddress
 })
-export default connect(mapStateToProps,)(LiqPayButton)
+export default connect(mapStateToProps, {deleteOrder})(LiqPayButton)
