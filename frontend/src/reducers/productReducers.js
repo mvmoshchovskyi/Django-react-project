@@ -40,13 +40,13 @@ export const productListReducer = (state = initialState, action) => {
         case NUMBER_PAGES:
             return {...state,currentPage: payload}
         case PRODUCT_LIST_FAIL:
-            return {loading: false, error: true};
+            return {loading: false, error:payload};
         case PRODUCT_SEARCH_REQUEST:
             return {loading: true};
         case PRODUCT_SEARCH_SUCCESS:
             return {loading: false, products: payload};
         case PRODUCT_SEARCH_FAIL:
-            return {loading: false, error: true};
+            return {loading: false, error: payload};
         default:
             return state;
     }

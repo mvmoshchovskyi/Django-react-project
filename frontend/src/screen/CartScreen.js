@@ -25,11 +25,9 @@ const CartScreen = ({userInfo, cartItems, addToCart, removeFromCart,   shippingA
 
     const checkout = () => {
         // checkoutHandler()
-if (userInfo && shippingAddress) {
-    history.push('/payment')
-} else {
+
     userInfo ? history.push('/shipping') : history.push('/signin?redirect=shipping')
-}
+
 
     }
 

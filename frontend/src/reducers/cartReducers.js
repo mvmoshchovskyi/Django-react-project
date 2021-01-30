@@ -1,13 +1,10 @@
 import {
     CART_ADD_ITEM,
     CART_REMOVE_ITEM,
-
     CART_SAVE_PAYMENT_METHOD,
-
     CART_CREATE_FAIL,
     CART_CREATE_REQUEST,
     CART_CREATE_SUCCESS,
-
     CART_EMPTY
 } from "../constants/cartConstants";
 

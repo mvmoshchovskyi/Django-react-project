@@ -2,9 +2,9 @@ import {
     CART_ADD_ITEM,
     CART_REMOVE_ITEM,
     CART_SAVE_PAYMENT_METHOD,
-    CART_CREATE_REQUEST,
-    CART_CREATE_SUCCESS,
-    CART_CREATE_FAIL
+    // CART_CREATE_REQUEST,
+    // CART_CREATE_SUCCESS,
+    // CART_CREATE_FAIL
 } from "../constants/cartConstants";
 import Axios from "axios";
 
@@ -37,26 +37,26 @@ export const savePaymentMethod = (data) => dispatch => {
 }
 
 export const checkoutHandler = () => async (dispatch, getState) => {
-    const token = getState().auth.userInfo.access
-    const cartItems = getState().cart.cartItems
-    dispatch({type: CART_CREATE_REQUEST, payload: cartItems});
-    try {
-        const config = {
-            headers: {
-                authorization: `Bearer ${token}`,
-            }
-        }
-        const {data} = await Axios.post(`${process.env.REACT_APP_API_URL}/api/carts/create/`, cartItems, config
-        );
-        dispatch({type: CART_CREATE_SUCCESS, payload: data});
-        localStorage.setItem('cartItems', JSON.stringify(data))
-    } catch (error) {
-        dispatch({
-            type: CART_CREATE_FAIL,
-            payload:
-                error.response && error.response.data.message
-                    ? error.response.data.message
-                    : error.message,
-        });
-    }
+    // const token = getState().auth.userInfo.access
+    // const cartItems = getState().cart.cartItems
+    // dispatch({type: CART_CREATE_REQUEST, payload: cartItems});
+    // try {
+    //     const config = {
+    //         headers: {
+    //             authorization: `Bearer ${token}`,
+    //         }
+    //     }
+    //     const {data} = await Axios.post(`${process.env.REACT_APP_API_URL}/api/carts/create/`, cartItems, config
+    //     );
+    //     dispatch({type: CART_CREATE_SUCCESS, payload: data});
+    //     localStorage.setItem('cartItems', JSON.stringify(data))
+    // } catch (error) {
+    //     dispatch({
+    //         type: CART_CREATE_FAIL,
+    //         payload:
+    //             error.response && error.response.data.message
+    //                 ? error.response.data.message
+    //                 : error.message,
+    //     });
+    // }
 }

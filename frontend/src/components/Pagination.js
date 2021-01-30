@@ -6,7 +6,7 @@ import {listProducts} from "../actions/productActions";
 
 const Pagination = ({currentPage, totalResults, listProducts}) => {
 
-    const numberPages = Math.floor(totalResults / 2);
+    const numberPages = Math.floor(totalResults / 3);
 
     let items = [];
     let maxPages = numberPages;

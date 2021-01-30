@@ -1,12 +1,12 @@
 import React from 'react';
-import {BrowserRouter as Router, Link, Route} from "react-router-dom";
+import { Link, } from "react-router-dom";
 import {connect,} from "react-redux";
 import {logout} from "../actions/authActions";
 import PropTypes from "prop-types";
 import Alert from "./Alert";
-import SearchBox from "./SearchBox";
 
-const Navbar = ({cartItems, userInfo, logout }) => {
+
+const Navbar = ({cartItems, userInfo, logout, }) => {
 
     const signoutHandler = () => {
         logout();
@@ -17,19 +17,10 @@ const Navbar = ({cartItems, userInfo, logout }) => {
             <header className="row">
                 <div>
                     <Link className="brand" to="/">
-                        Shop
+                       Shop
                     </Link>
                 </div>
-                <div>
-                    <Router>
-                        <Route
-                            render={({history}) => (
-                                <SearchBox history={history}></SearchBox>
-                            )}
-                        ></Route>
-                    </Router>
 
-                </div>
                 <div>
                     <Link to="/cart">
                         Cart

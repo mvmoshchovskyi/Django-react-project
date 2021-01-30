@@ -18,8 +18,8 @@ export const saveShippingAddress = (shippingAddress) => async (dispatch, getStat
         }
         const {data} = await Axios.post(`${process.env.REACT_APP_API_URL}/api/address/create/`, shippingAddress, config
         );
-        localStorage.setItem('cartItems', JSON.stringify(getState().address.shippingAddress));
-        // localStorage.setItem('shippingAddress', JSON.stringify(data))
+        // localStorage.setItem('cartItems', JSON.stringify(getState().address.shippingAddress));
+        localStorage.setItem('shippingAddress', JSON.stringify(data))
         dispatch({type: ADDRESS_CREATE_SUCCESS, payload: data});
 
     } catch (error) {

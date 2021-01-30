@@ -3,17 +3,21 @@ import {connect} from "react-redux";
 import {productSearch} from "../actions/productActions";
 import PropTypes from "prop-types";
 
+
 const SearchBox = ({productSearch}) => {
+
     const [searchKeyword, setSearchKeyword] = useState('')
 
     const submitHandler = (e) => {
         e.preventDefault()
         productSearch(searchKeyword)
         setSearchKeyword('')
+
+
     }
 
     return (
-        <form className="search" onSubmit={submitHandler}>
+        <form className="search" onSubmit={submitHandler} >
             <div className="row">
                 <input
                     name="searchKeyword"

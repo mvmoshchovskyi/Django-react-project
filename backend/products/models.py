@@ -7,19 +7,26 @@ from django.db import models
 # photo = models.ImageField(upload_to=user_directory_path)
 
 class ProductsModel(models.Model):
-
     class Meta:
         db_table = 'products'
 
     class Category(models.TextChoices):
         Shirts = 'Shirts'
         Pants = 'Pants'
+        Dress = 'Dress'
 
     class Brand(models.TextChoices):
         Nike = 'Nike'
         Adidas = 'Adidas'
         Lacoste = 'Lacoste'
         Puma = 'Puma'
+        Dior = 'Dior'
+        Chanel = 'Chanel'
+        Gucci = 'Gucci'
+
+    class Sex(models.TextChoices):
+        Man = 'Man'
+        Woman = 'Woman'
 
     name = models.CharField(max_length=255)
     category = models.CharField(max_length=50, choices=Category.choices, default=Category.Shirts)
@@ -30,6 +37,8 @@ class ProductsModel(models.Model):
     rating = models.FloatField()
     numReviews = models.IntegerField()
     description = models.TextField(max_length=500, blank=True)
+    sex = models.CharField(max_length=62, choices=Sex.choices, default=Sex.Man)
+
 
     def __str__(self):
         return self.name

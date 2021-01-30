@@ -4,7 +4,7 @@ import {connect,} from 'react-redux';
 import LoadingBox from "../components/LoadingBox";
 import MessageBox from "../components/MessageBox";
 import PropTypes from "prop-types";
-import {Link} from "react-router-dom";
+
 
 const LiqPayButton = ({orderDetail, loading, error, shippingAddress}) => {
     console.log('ADR',shippingAddress.shippingAddress);
@@ -101,6 +101,7 @@ const LiqPayButton = ({orderDetail, loading, error, shippingAddress}) => {
                                 server_url="http://server.domain.com/liqpay"
                                 product_description="Online shopping"
                                 amount={orderDetail.total_price}
+                                currency='UAH'
                                 style={{margin: "8px"}}
                                 extra={[<ButtonComponent key="1"/>]}
                             />

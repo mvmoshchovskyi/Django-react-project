@@ -328,3 +328,7 @@ img.large {
   align-items: center;
   margin-top: 20rem;
 }
+.search_box {
+  display: flex;
+  justify-content: center;
+}

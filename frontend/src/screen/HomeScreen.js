@@ -6,6 +6,7 @@ import LoadingBox from "../components/LoadingBox";
 import Product from '../components/Product';
 import Pagination from "../components/Pagination";
 import {listProducts} from "../actions/productActions";
+import SearchBox from "../components/SearchBox";
 
 const HomeScreen = ({products, loading, error, listProducts, totalResults}) => {
 
@@ -21,14 +22,20 @@ const HomeScreen = ({products, loading, error, listProducts, totalResults}) => {
                 : error
                     ? <MessageBox variant='danger'>{error}</MessageBox>
                     :
-
                     (
-                    <div className="row center">
+                        <div>
+                            <div className='search_box'>
+                                <SearchBox/>
+                            </div>
+                            <div className="row center">
+                                {products.map((product) => (
+                                    <Product key={product.id} product={product}></Product>
+                                ))}
+                            </div>
 
-                        {products.map((product) => (
-                            <Product key={product.id} product={product}></Product>
-                        ))}
-                    </div>)}
+                        </div>
+
+                    )}
             {
                 totalResults > 2 &&
                 <Pagination/>
