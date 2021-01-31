@@ -47,9 +47,9 @@ const Pagination = ({currentPage, totalResults, listProducts}) => {
         <div className="pagination-container">
             <div className="paginate-ctn">
 
-                <div className="round-effect" onClick={prevPage}> &#10094; </div>
+                <div className={leftSide === currentPage ? 'none' : `round-effect`} onClick={prevPage}> &#10094; </div>
                 {items}
-                <div className="round-effect" onClick={nextPage}> &#10095; </div>
+                <div className={rightSide === currentPage ? '' : `round-effect`} onClick={nextPage}> &#10095; </div>
             </div>
         </div>
     );
