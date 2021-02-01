@@ -27,7 +27,7 @@ class ProductListFilter(ListAPIView):
     queryset = ProductsModel.objects.all()
     serializer_class = ProductSerializer
     filter_backends = [DjangoFilterBackend]
-    filterset_fields = ['category', 'brand']
+    filterset_fields = ['sex']
 
 
 # '^' Starts-with search.

@@ -5,15 +5,15 @@ import MessageBox from "../components/MessageBox";
 import LoadingBox from "../components/LoadingBox";
 import Product from '../components/Product';
 import Pagination from "../components/Pagination";
-import {listProducts} from "../actions/productActions";
+import {listProducts,productSearch} from "../actions/productActions";
 import SearchBox from "../components/SearchBox";
+import Filter from "../components/Filter";
 
-const HomeScreen = ({products, loading, error, listProducts, totalResults}) => {
+const HomeScreen = ({products, loading, error, listProducts, totalResults,}) => {
 
     useEffect(() => {
         listProducts()
     }, [listProducts])
-
 
     return (
         <>
@@ -26,6 +26,7 @@ const HomeScreen = ({products, loading, error, listProducts, totalResults}) => {
                         <div>
                             <div className='search_box'>
                                 <SearchBox/>
+                                <Filter/>
                             </div>
                             <div className="row center">
                                 {products.map((product) => (
@@ -37,8 +38,8 @@ const HomeScreen = ({products, loading, error, listProducts, totalResults}) => {
 
                     )}
             {
-                totalResults > 2 &&
-                <Pagination/>
+                totalResults > 6 &&
+                <Pagination />
 
             }
         </>
@@ -58,4 +59,4 @@ const mapStateToProps = state => ({
     error: state.productList.error,
     totalResults: state.productList.totalResults,
 })
-export default connect(mapStateToProps, {listProducts})(HomeScreen)
+export default connect(mapStateToProps, {listProducts,productSearch})(HomeScreen)

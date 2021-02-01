@@ -3,17 +3,16 @@ from rest_framework.mixins import ListModelMixin
 from .serializers import OrderSerializer
 from .models import OrderModel
 from rest_framework import permissions
-from rest_framework.response import Response
 
 
 class OrderList(ListAPIView):
-    permission_classes = [permissions.AllowAny, ]
+    permission_classes = [permissions.IsAuthenticated, ]
     serializer_class = OrderSerializer
     queryset = OrderModel.objects.all()
 
 
 class CreateOrder(ListModelMixin, CreateAPIView):
-    permission_classes = [permissions.AllowAny, ]
+    permission_classes = [permissions.IsAuthenticated, ]
     serializer_class = OrderSerializer
     queryset = OrderModel.objects.all()
 
@@ -29,7 +28,7 @@ class CreateOrder(ListModelMixin, CreateAPIView):
 
 
 class OrderDetailView(RetrieveUpdateDestroyAPIView):
-    permission_classes = [permissions.AllowAny, ]
+    permission_classes = [permissions.IsAuthenticated, ]
     serializer_class = OrderSerializer
     queryset = OrderModel.objects.all()
 

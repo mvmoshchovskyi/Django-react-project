@@ -6,7 +6,7 @@ import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MessageBox';
 import PropTypes from "prop-types";
 import {createOrder} from '../actions/orderActions'
-
+import {formatCurrency} from "../utils";
 
 const PlaceOrderScreen = ({userId, shippingAddress, paymentMethod, loading, error, cart, createOrder}) => {
 
@@ -83,7 +83,7 @@ const PlaceOrderScreen = ({userId, shippingAddress, paymentMethod, loading, erro
                                                 </div>
 
                                                 <div>
-                                                    {item.qty} x ${item.price} = ${item.qty * item.price}
+                                                    {item.qty} x ${item.price} = {formatCurrency(item.qty * item.price)}
                                                 </div>
                                             </div>
                                         </li>

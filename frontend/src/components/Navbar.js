@@ -37,7 +37,7 @@ const Navbar = ({cartItems, userInfo, logout, }) => {
                             <ul className="dropdown-content">
                                 <li>
                                     <Link to="#signout" onClick={signoutHandler}>
-                                        Logh Out
+                                        Log Out
                                     </Link>
                                 </li>
                             </ul>

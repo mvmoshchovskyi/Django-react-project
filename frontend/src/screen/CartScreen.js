@@ -4,6 +4,7 @@ import {connect} from "react-redux";
 import {addToCart, removeFromCart,checkoutHandler} from "../actions/cartActions";
 import MessageBox from "../components/MessageBox";
 import PropTypes from "prop-types";
+import {formatCurrency} from "../utils";
 
 const CartScreen = ({userInfo, cartItems, addToCart, removeFromCart,   shippingAddress, checkoutHandler}) => {
     const {cartId} = useParams()
@@ -88,8 +89,8 @@ const CartScreen = ({userInfo, cartItems, addToCart, removeFromCart,   shippingA
                     <ul>
                         <li>
                             <h2>
-                                Subtotal ({cartItems.reduce((a, c) => a + c.qty, 0)} items) : $
-                                {cartItems.reduce((a, c) => a + c.price * c.qty, 0)}
+                                Subtotal ({cartItems.reduce((a, c) => a + c.qty, 0)} items) :
+                                {formatCurrency(cartItems.reduce((a, c) => a + c.price * c.qty, 0))}
                             </h2>
                         </li>
                         <li>

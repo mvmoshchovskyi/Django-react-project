@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
-import {listProducts} from "../actions/productActions";
+import {listProducts, productSearch,filterProducts} from "../actions/productActions";
 
 
-const Pagination = ({currentPage, totalResults, listProducts}) => {
-
-    const numberPages = Math.floor(totalResults / 3);
+const Pagination = ({currentPage, totalResults, listProducts, sex,filterProducts}) => {
+    console.log('SEX',sex)
+    const numberPages = Math.floor(totalResults / 6);
 
     let items = [];
     let maxPages = numberPages;
@@ -16,7 +16,8 @@ const Pagination = ({currentPage, totalResults, listProducts}) => {
     let rightSide = currentPage + 2;
     if (rightSide > maxPages) rightSide = maxPages;
 
-    for (let i = leftSide; i <= rightSide; i++) {
+
+            for (let i = leftSide; i <= rightSide; i++) {
         items.push(
             <div
                 key={i}
@@ -28,6 +29,8 @@ const Pagination = ({currentPage, totalResults, listProducts}) => {
             </div>
         );
     }
+
+
 
     const nextPage = () => {
         if (currentPage < maxPages) {
@@ -47,9 +50,11 @@ const Pagination = ({currentPage, totalResults, listProducts}) => {
         <div className="pagination-container">
             <div className="paginate-ctn">
 
-                <div className={leftSide === currentPage ? 'none' : `round-effect`} onClick={prevPage}> &#10094; </div>
+                <div className={leftSide === currentPage ? '' : `round-effect`}
+                     onClick={prevPage}> {leftSide !== currentPage ? '<' : ''} </div>
                 {items}
-                <div className={rightSide === currentPage ? '' : `round-effect`} onClick={nextPage}> &#10095; </div>
+                <div className={rightSide === currentPage ? '' : `round-effect`}
+                     onClick={nextPage}> {rightSide !== currentPage ? '>' : ''} </div>
             </div>
         </div>
     );
@@ -63,6 +68,9 @@ Pagination.propTypes = {
 const mapStateToProps = state => ({
     totalResults: state.productList.totalResults,
     currentPage: state.productList.currentPage,
+    next: state.productList.next,
+    previous: state.productList.next,
+    sex: state.productList.sex,
 
 })
-export default connect(mapStateToProps, {listProducts})(Pagination)
+export default connect(mapStateToProps, {listProducts, productSearch,filterProducts})(Pagination)

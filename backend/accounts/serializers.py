@@ -18,7 +18,6 @@ class UserSerializer(ModelSerializer):
         return instance
 
 
-
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
     def validate(self, attrs):
         data = super().validate(attrs)

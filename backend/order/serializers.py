@@ -20,7 +20,4 @@ class OrderSerializer(ModelSerializer):
         instance.save()
         return instance
 
-# class OrderCreateSerializer(ModelSerializer):
-#     class Meta:
-#         model = OrderModel
-#         fields = 'payment_method,items_price,delivery_price,total_price'
+

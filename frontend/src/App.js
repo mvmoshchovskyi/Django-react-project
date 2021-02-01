@@ -30,7 +30,7 @@ function App() {
                         <Route exact path="/"> <HomeScreen/> </Route>
                     </Switch>
                 </main>
-                <footer className="row center">Developed by Moshchovskyi</footer>
+                <footer className="row center">Developed by Moshchovskyi Mykhailo</footer>
             </Layout>
         </Router>
     );

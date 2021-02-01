@@ -12,21 +12,61 @@ import {
     PRODUCT_SEARCH_SUCCESS,
     PRODUCT_SEARCH_FAIL,
 
-    NUMBER_PAGES
+    PRODUCT_FILTER_BY_SEX_REQUEST,
+    PRODUCT_FILTER_BY_SEX_SUCCESS,
+    PRODUCT_FILTER_BY_SEX_FAIL,
 } from '../constants/productConstants'
 
 export const listProducts = (number = 1) => async dispatch => {
     dispatch({
-        type: PRODUCT_LIST_REQUEST,
+        type: PRODUCT_LIST_REQUEST,payload: number
     });
     try {
         const {data} = await Axios.get(`${process.env.REACT_APP_API_URL}/api/products/?page=${number}`);
         dispatch({type: PRODUCT_LIST_SUCCESS, payload: data});
-        dispatch({type: NUMBER_PAGES, payload: number});
+
     } catch (error) {
         dispatch({type: PRODUCT_LIST_FAIL, payload: error.message});
     }
 };
+
+export const productSearch = (name) => async dispatch => {
+
+    dispatch({type: PRODUCT_SEARCH_REQUEST, payload: name});
+    try {
+            const {data} = await Axios.get(`${process.env.REACT_APP_API_URL}/api/products/search/?search=${name}`)
+            dispatch({type: PRODUCT_SEARCH_SUCCESS, payload: data});
+    } catch (error) {
+        dispatch({
+            type: PRODUCT_SEARCH_FAIL,
+            payload:
+                error.response && error.response.data.message
+                    ? error.response.data.message
+                    : error.message,
+        });
+    }
+};
+
+export const filterProducts = (sex ) => async dispatch => {
+
+    dispatch({type: PRODUCT_FILTER_BY_SEX_REQUEST, payload: sex});
+    try {
+            const {data} = await Axios.get(`${process.env.REACT_APP_API_URL}/api/products/category/?sex=${sex}`)
+            dispatch({type: PRODUCT_FILTER_BY_SEX_SUCCESS, payload: data});
+    } catch (error) {
+        dispatch({
+            type: PRODUCT_FILTER_BY_SEX_FAIL,
+            payload:
+                error.response && error.response.data.message
+                    ? error.response.data.message
+                    : error.message,
+        });
+    }
+};
+
+
+
+
 export const detailsProduct = (productId) => async (dispatch, getState) => {
     dispatch({type: PRODUCT_DETAILS_REQUEST, payload: productId});
     try {
@@ -42,34 +82,5 @@ export const detailsProduct = (productId) => async (dispatch, getState) => {
                     ? error.response.data.message
                     : error.message,
         });
-    }
-};
-export const productSearch = (name) => async dispatch => {
-    dispatch({type: PRODUCT_SEARCH_REQUEST, payload: name});
-    try {
-        const {data} = await Axios.get(`${process.env.REACT_APP_API_URL}/api/products/search/?search=${name}`)
-
-        dispatch({type: PRODUCT_SEARCH_SUCCESS, payload: data.results});
-    } catch (error) {
-        dispatch({
-            type: PRODUCT_SEARCH_FAIL,
-            payload:
-                error.response && error.response.data.message
-                    ? error.response.data.message
-                    : error.message,
-        });
-    }
-};
-export const findListProductsByNumber = (number) => async dispatch => {
-
-    dispatch({
-        type: PRODUCT_LIST_REQUEST,
-    });
-    try {
-
-        const {data} = await Axios.get(`${process.env.REACT_APP_API_URL}/api/products/?page=${number}`);
-        dispatch({type: PRODUCT_LIST_SUCCESS, payload: data});
-    } catch (error) {
-        dispatch({type: PRODUCT_LIST_FAIL, payload: error.message});
     }
 };
